@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlurTester", "BlurTester\BlurTester.csproj", "{CD148040-2E82-4BB2-98C7-666FCA1177AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperfastBlur", "SuperfastBlur\SuperfastBlur.csproj", "{956AE992-662A-48C7-B079-890CA3E15A0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD148040-2E82-4BB2-98C7-666FCA1177AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD148040-2E82-4BB2-98C7-666FCA1177AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD148040-2E82-4BB2-98C7-666FCA1177AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD148040-2E82-4BB2-98C7-666FCA1177AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{956AE992-662A-48C7-B079-890CA3E15A0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{956AE992-662A-48C7-B079-890CA3E15A0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{956AE992-662A-48C7-B079-890CA3E15A0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{956AE992-662A-48C7-B079-890CA3E15A0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
