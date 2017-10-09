@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -30,6 +30,7 @@ namespace SuperfastBlur.BlurTester
             var result = blur.Process(10);
             Console.WriteLine($"Finished in: {sw.ElapsedMilliseconds}ms");
             result.Save("blur.jpg", ImageFormat.Jpeg);
+            result.Save("blur.png", ImageFormat.Png);
         }
     }
 }
