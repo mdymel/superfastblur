@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -9,6 +9,7 @@ namespace SuperfastBlur
 {
     public class GaussianBlur
     {
+        private readonly int[] _alpha;
         private readonly int[] _red;
         private readonly int[] _green;
         private readonly int[] _blue;
@@ -29,12 +30,14 @@ namespace SuperfastBlur
             _width = image.Width;
             _height = image.Height;
 
+            _alpha = new int[_width * _height];
             _red = new int[_width * _height];
             _green = new int[_width * _height];
             _blue = new int[_width * _height];
 
             Parallel.For(0, source.Length, _pOptions, i =>
             {
+                _alpha[i] = (int)((source[i] & 0xff000000) >> 24);
                 _red[i] = (source[i] & 0xff0000) >> 16;
                 _green[i] = (source[i] & 0x00ff00) >> 8;
                 _blue[i] = (source[i] & 0x0000ff);
@@ -43,27 +46,31 @@ namespace SuperfastBlur
 
         public Bitmap Process(int radial)
         {
+            var newAlpha = new int[_width * _height];
             var newRed = new int[_width * _height];
             var newGreen = new int[_width * _height];
             var newBlue = new int[_width * _height];
             var dest = new int[_width * _height];
             
             Parallel.Invoke(
+                () => gaussBlur_4(_alpha, newAlpha, radial),
                 () => gaussBlur_4(_red, newRed, radial),
                 () => gaussBlur_4(_green, newGreen, radial),
                 () => gaussBlur_4(_blue, newBlue, radial));
 
             Parallel.For(0, dest.Length, _pOptions, i =>
             {
+                if (newAlpha[i] > 255) newAlpha[i] = 255;
                 if (newRed[i] > 255) newRed[i] = 255;
                 if (newGreen[i] > 255) newGreen[i] = 255;
                 if (newBlue[i] > 255) newBlue[i] = 255;
 
+                if (newAlpha[i] < 0) newAlpha[i] = 0;
                 if (newRed[i] < 0) newRed[i] = 0;
                 if (newGreen[i] < 0) newGreen[i] = 0;
                 if (newBlue[i] < 0) newBlue[i] = 0;
 
-                dest[i] = (int)(0xff000000u | (uint)(newRed[i] << 16) | (uint)(newGreen[i] << 8) | (uint)newBlue[i]);
+                dest[i] = (int)((uint)(newAlpha[i] << 24) | (uint)(newRed[i] << 16) | (uint)(newGreen[i] << 8) | (uint)newBlue[i]);
             });
 
             var image = new Bitmap(_width, _height);
